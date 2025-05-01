@@ -1,16 +1,18 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import AppShell from "./layout.appshell"
 import { SITE_NAME, SITE_DESCRIPTION, SITE_KEYWORDS } from "@/lib/constants"
 import { GoogleAnalytics } from "@next/third-parties/google"
 
+// css
+import "./globals.css"
+
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} | Golang Full Stack Developer`,
+  title: `${SITE_NAME} | blog, portfolio site`,
   description: SITE_DESCRIPTION,
   keywords: SITE_KEYWORDS,
     generator: 'v0.dev'
