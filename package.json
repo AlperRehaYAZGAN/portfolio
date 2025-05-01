@@ -60,7 +60,6 @@
     "zod": "^3.24.1",
     "@emotion/is-prop-valid": "latest",
     "framer-motion": "latest",
-    "tailwindcss": "latest",
     "@next/third-parties": "latest",
     "@radix-ui/react-icons": "latest"
   },
