@@ -5,7 +5,7 @@ import { ThemeSwitcher } from "../components/theme/theme-switcher"
 import { LinkLogo } from "@/components/header/link-logo"
 import { NAV_LINKS, AUTHOR } from "@/lib/constants"
 
-export default function AppShell({
+function AppShellComponent({
   children,
 }: {
   children: React.ReactNode
@@ -13,15 +13,13 @@ export default function AppShell({
   return (
     <main className="min-h-screen min-w-screen flex flex-col items-center max-w-screen">
       <div className="flex-1 w-full flex flex-col">
-        <nav
-          className="w-full flex flex-row justify-center h-16 sticky top-0 bg-background z-20 border-b border-b-foreground/10" /* border-b border-b-foreground/10 */
-        >
+        <nav className="w-full flex flex-row justify-center h-16 sticky top-0 bg-background z-20 border-b border-b-foreground/10">
           <div className="border-foreground/15 border-b-1 w-full flex flex-row justify-between items-center p-2 px-5 text-sm">
             {/* Animate left side */}
             <div className="flex gap-5 items-center font-semibold animate-in fade-in slide-in-from-left-2 duration-200">
               <LinkLogo />
               {/* Stagger theme switcher animation */}
-              <div className="animate-in fade-in slide-in-from-left-2 duration-200" /* delay-150 */>
+              <div className="animate-in fade-in slide-in-from-left-2 duration-200">
                 <ThemeSwitcher />
               </div>
             </div>
@@ -43,7 +41,7 @@ export default function AppShell({
             </div>
           </div>
         </nav>
-        <div className="flex flex-col grow max-w-full" /* overflow-hidden */>{children}</div>
+        <div className="flex flex-col grow max-w-full">{children}</div>
 
         <footer className="border-foreground/15 w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-4 sticky bottom-0 bg-background z-10">
           <p>
@@ -54,3 +52,6 @@ export default function AppShell({
     </main>
   )
 }
+
+const AppShell = AppShellComponent
+export default AppShell

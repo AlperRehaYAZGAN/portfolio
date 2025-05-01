@@ -61,8 +61,8 @@
     "@emotion/is-prop-valid": "latest",
     "framer-motion": "latest",
     "tailwindcss": "latest",
-    "@radix-ui/react-icons": "latest",
-    "@next/third-parties": "latest"
+    "@next/third-parties": "latest",
+    "@radix-ui/react-icons": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

@@ -8,7 +8,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { SOCIAL_LINKS, AUTHOR } from "@/lib/constants"
 
-export default function ProfileSection() {
+function ProfileSectionComponent() {
   return (
     <motion.div
       className="grid md:grid-cols-2 gap-8 items-center max-w-4xl w-full"
@@ -150,3 +150,7 @@ export default function ProfileSection() {
     </motion.div>
   )
 }
+
+// Açık bir şekilde default export ekleyelim
+const ProfileSection = ProfileSectionComponent
+export default ProfileSection
