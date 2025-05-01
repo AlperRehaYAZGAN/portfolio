@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: `${SITE_NAME} | blog, portfolio site`,
   description: SITE_DESCRIPTION,
   keywords: SITE_KEYWORDS,
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({

@@ -93,4 +93,8 @@ const config: Config = {
   },
   plugins: [require("tailwindcss-animate")],
 }
+<<<<<<< HEAD
 export default config
+=======
+export default config
+>>>>>>> 1290dea (feat: add OpenGraph image and blog page placeholder)
