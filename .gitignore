@@ -27,3 +27,8 @@ yarn-error.log*
 next-env.d.ts
 
 /.cache
+
+# wrangler
+/.wrangler
+/build
+.dev.vars

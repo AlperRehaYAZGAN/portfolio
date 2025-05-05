@@ -1,8 +1,7 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
 import { Link } from "@remix-run/react";
 import { motion } from "framer-motion";
-import { ArrowRight, Youtube } from "lucide-react";
-import { Linkedin, Twitter } from "lucide-react";
+import { ArrowRight, Linkedin, Twitter, Youtube } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import {
   AUTHOR,

@@ -29,27 +29,7 @@ export const links: LinksFunction = () => [
   },
 ];
 
-/**
- * @description
- * If you would like to include the development env values in your browser bundle AKA
- * set some global values on the window object, take a look at these docs here:
- * https://remix.run/guides/envvars#server-environment-variables
- */
-// export async function loader() {
-//   return json({
-//     ENV: {
-//       APP_ENV: process.env.NODE_ENV,
-//     },
-//   });
-// }
-
-// Load the GA tracking id from the .env
-
-export const loader = async ({
-  context,
-  params,
-  request,
-}: LoaderFunctionArgs) => {
+export const loader = async ({ context }: LoaderFunctionArgs) => {
   return json({
     gaTrackingId: context.cloudflare.env.GA_TRACKING_ID,
     message: "Hello from worker loader",
@@ -61,8 +41,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { message } = useLoaderData<typeof loader>();
 
   useEffect(() => {
-    console.log("location and message", location, message);
-  }, [location, message]);
+    console.log("message from worker", message);
+  }, [message]);
 
   return (
     <html lang="en">
