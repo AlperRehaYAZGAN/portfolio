@@ -2,6 +2,7 @@
   "name": "yazganxyz-apex-ui",
   "compatibility_date": "2025-05-05",
   "main": "./server.cloudflare.ts",
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": "./build/client"
   },
@@ -22,5 +23,6 @@
       "pattern": "alperreha.yazgan.xyz",
       "custom_domain": true
     }
-  ]
+  ],
+  "vars": { "GA_TRACKING_ID": "G-1234567890" }
 }
