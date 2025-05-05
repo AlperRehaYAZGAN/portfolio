@@ -1,7 +1,6 @@
 {
   "name": "yazganxyz-apex-ui",
-  "compatibility_date": "2025-05-05",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2025-04-01",
   "main": "./server.cloudflare.ts",
   "assets": {
     "directory": "./build/client"
@@ -9,5 +8,16 @@
   "observability": {
     "enabled": true
   },
-  "upload_source_maps": true
+  "upload_source_maps": true,
+  "routes": [
+    {
+      "pattern": "www.yazgan.xyz",
+      "custom_domain": true
+    },
+    {
+      "pattern": "alperreha.yazgan.xyz",
+      "custom_domain": true
+    }
+  ],
+  "vars": { "GA_TRACKING_ID": "G-75N2YXKWY3" }
 }
