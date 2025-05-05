@@ -19,12 +19,12 @@
     "check": "tsc && remix vite:build && wrangler deploy --dry-run",
     "dev": "remix vite:dev",
     "build": "remix vite:build",
-    "deploy": "pnpm run build && wrangler deploy",
+    "deploy": "pnpm run build && pnpm dlx wrangler deploy",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "preview": "npm run build && wrangler dev",
+    "preview": "pnpm run build && pnpm dlx wrangler dev",
     "typecheck": "tsc",
-    "cf-typegen": "wrangler types",
-    "typegen": "wrangler types"
+    "cf-typegen": "pnpm dlx wrangler types",
+    "typegen": "pnpm dlx wrangler types"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",
