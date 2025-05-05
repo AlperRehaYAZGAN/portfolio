@@ -1,17 +1,8 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/cloudflare";
 import { Link } from "@remix-run/react";
-import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Construction, Youtube } from "lucide-react";
-import { Linkedin, Twitter } from "lucide-react";
+import { ArrowLeft, Construction } from "lucide-react";
 import { Button } from "~/components/ui/button";
-import {
-  AUTHOR,
-  SITE_DESCRIPTION,
-  SITE_DOMAIN,
-  SITE_KEYWORDS,
-  SITE_NAME,
-  SOCIAL_LINKS,
-} from "~/lib/constants";
+import { SITE_DOMAIN, SITE_KEYWORDS, SITE_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [

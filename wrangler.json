@@ -1,0 +1,12 @@
+{
+  "name": "yazganxyz-apex-ui",
+  "compatibility_date": "2025-05-05",
+  "main": "./server.cloudflare.ts",
+  "assets": {
+    "directory": "./build/client"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "upload_source_maps": true
+}

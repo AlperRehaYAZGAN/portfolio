@@ -8,14 +8,14 @@ import {
   useLoaderData,
   useLocation,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/cloudflare";
 
 // css
 import "./tailwind.css";
 import AppShellComponent from "./appshell";
 
 import * as gtag from "~/lib/gtags.client";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -53,7 +53,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const { gaTrackingId } = useLoaderData<typeof loader>();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (gaTrackingId?.length) {
       console.log("pageview", location.pathname, gaTrackingId);
       gtag.pageview(location.pathname, gaTrackingId);
