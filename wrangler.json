@@ -11,6 +11,10 @@
   "upload_source_maps": true,
   "routes": [
     {
+      "pattern": "yazgan.xyz",
+      "custom_domain": true
+    },
+    {
       "pattern": "www.yazgan.xyz",
       "custom_domain": true
     },
