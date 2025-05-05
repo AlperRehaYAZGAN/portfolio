@@ -1,3 +1,4 @@
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import {
   json,
   Links,
@@ -8,14 +9,13 @@ import {
   useLoaderData,
   useLocation,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/cloudflare";
 
 // css
-import "./tailwind.css";
 import AppShellComponent from "./appshell";
+import "./tailwind.css";
 
+import { useEffect } from "react";
 import * as gtag from "~/lib/gtags.client";
-import { useEffect, useLayoutEffect } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,15 +45,16 @@ export const links: LinksFunction = () => [
 // }
 
 // Load the GA tracking id from the .env
-export const loader = async () => {
-  return json({ gaTrackingId: process.env.GA_TRACKING_ID });
+
+export const loader = async ({ context }: LoaderFunctionArgs) => {
+  return json({ gaTrackingId: context.cloudflare.env.GA_TRACKING_ID });
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const { gaTrackingId } = useLoaderData<typeof loader>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (gaTrackingId?.length) {
       console.log("pageview", location.pathname, gaTrackingId);
       gtag.pageview(location.pathname, gaTrackingId);
