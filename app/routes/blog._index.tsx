@@ -1,51 +1,43 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
-import { Link } from "@remix-run/react";
-import { ArrowLeft, Construction } from "lucide-react";
-import { Button } from "~/components/ui/button";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import { json } from "@remix-run/cloudflare";
+import { Link, useLoaderData } from "@remix-run/react";
 import { SITE_DOMAIN, SITE_KEYWORDS, SITE_NAME } from "~/lib/constants";
+import { getPosts } from "~/lib/posts";
 
 export const meta: MetaFunction = () => {
   return [
     { title: `Blog | ${SITE_NAME}` },
-    { name: "description", content: "Blog sayfası yakında sizlerle olacak." },
-    {
-      name: "keywords",
-      content: SITE_KEYWORDS,
-    },
+    { name: "description", content: "Latest articles and tutorials." },
+    { name: "keywords", content: SITE_KEYWORDS },
     { name: "og:title", content: `Blog | ${SITE_NAME}` },
-    {
-      name: "og:description",
-      content: "Blog sayfası yakında sizlerle olacak.",
-    },
+    { name: "og:description", content: "Latest articles and tutorials." },
     { name: "og:url", content: `https://${SITE_DOMAIN}/blog` },
     { name: "og:image", content: `https://${SITE_DOMAIN}/og-image.png` },
   ];
 };
 
+export const loader = async (_args: LoaderFunctionArgs) => {
+  return json({ posts: getPosts() });
+};
+
 export default function Blog() {
+  const { posts } = useLoaderData<typeof loader>();
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] px-4 text-center">
-      <div className="animate-in fade-in slide-in-from-top-2 duration-400 flex flex-col items-center max-w-md">
-        <Construction className="h-16 w-16 text-primary mb-4" />
-
-        <h1 className="text-4xl font-bold mb-2">Blog Page</h1>
-
-        <div className="h-1 w-20 bg-primary my-4 rounded-full"></div>
-
-        <p className="text-xl mb-2">Coming Soon</p>
-
-        <p className="text-muted-foreground mb-8">
-          My blog is currently under construction. I will soon share my articles
-          about Golang, Rust, Next.js and other technologies here.
-        </p>
-
-        <Button asChild className="group">
-          <Link to="/" className="flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4 group-hover:translate-x-[-2px] transition-transform" />
-            Back to Home
-          </Link>
-        </Button>
-      </div>
+    <div className="container mx-auto max-w-2xl py-10">
+      <h1 className="text-4xl font-bold mb-8">Blog</h1>
+      <ul className="space-y-6">
+        {posts.map((post) => (
+          <li key={post.slug} className="border-b pb-4">
+            <Link
+              to={`/blog/${post.slug}`}
+              className="text-2xl text-primary hover:underline"
+            >
+              {post.title}
+            </Link>
+            <p className="text-sm text-muted-foreground">{post.summary}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
