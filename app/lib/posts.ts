@@ -1,3 +1,20 @@
+import posts from '../../public/mds/posts.json'
+
+export interface PostMeta {
+  slug: string
+  title: string
+  summary: string
+  date: string
+}
+
+export function getPosts(): PostMeta[] {
+  return posts as PostMeta[]
+}
+
+export function getPost(slug: string): PostMeta | null {
+  return (posts as PostMeta[]).find((p) => p.slug === slug) || null
+}
+
 import { parse } from 'path'
 
 interface Post {

@@ -1,0 +1,14 @@
+[
+  {
+    "slug": "hello-nodejs-1",
+    "title": "Hello Node.js",
+    "summary": "Introduction to Node.js and environment setup.",
+    "date": "2024-01-01"
+  },
+  {
+    "slug": "welcome",
+    "title": "Welcome to the Blog",
+    "summary": "A short introduction to my new blog powered by Remix.",
+    "date": "2024-05-15"
+  }
+]

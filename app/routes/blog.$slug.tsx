@@ -1,6 +1,8 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { json } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
+import { useEffect, useState } from "react";
+import MDX from "@mdx-js/runtime";
 import { SITE_DOMAIN, SITE_NAME } from "~/lib/constants";
 import { getPost } from "~/lib/posts";
 
@@ -27,10 +29,18 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
 
 export default function BlogPost() {
   const { post } = useLoaderData<typeof loader>();
+  const [content, setContent] = useState("");
+
+  useEffect(() => {
+    fetch(`/mds/${post.slug}.md`)
+      .then((res) => res.text())
+      .then((text) => setContent(text));
+  }, [post.slug]);
+
   return (
     <div className="container mx-auto max-w-2xl py-10">
       <h1 className="text-4xl font-bold mb-8">{post.title}</h1>
-      <article className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+      {content ? <MDX>{content}</MDX> : <p>Loading...</p>}
     </div>
   );
 }
