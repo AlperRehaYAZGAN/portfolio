@@ -2,7 +2,7 @@ import type { MetaFunction } from "@remix-run/cloudflare";
 import { Link } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { ArrowRight, Linkedin, Twitter, Youtube } from "lucide-react";
-import { Button } from "~/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   AUTHOR,
   SITE_DESCRIPTION,
@@ -10,7 +10,7 @@ import {
   SITE_KEYWORDS,
   SITE_NAME,
   SOCIAL_LINKS,
-} from "~/lib/constants";
+} from "@/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [

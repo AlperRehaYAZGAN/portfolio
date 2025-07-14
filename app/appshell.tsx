@@ -1,8 +1,8 @@
+import { LinkLogo } from "@/components/header/link-logo";
+import { Button } from "@/components/ui/button";
+import { NAV_LINKS } from "@/lib/constants";
 import { Link } from "@remix-run/react";
 import type React from "react";
-import { LinkLogo } from "~/components/header/link-logo";
-import { Button } from "~/components/ui/button";
-import { NAV_LINKS, AUTHOR } from "~/lib/constants";
 
 function AppShellComponent({ children }: { children: React.ReactNode }) {
   return (
@@ -38,9 +38,7 @@ function AppShellComponent({ children }: { children: React.ReactNode }) {
         </div>
 
         <footer className="border-foreground/15 w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-4 sticky bottom-0 bg-background">
-          <p>
-            All rights reserved &copy; {new Date().getFullYear()} {AUTHOR.name}
-          </p>
+          <p>All rights reserved &copy; {new Date().getFullYear()}</p>
         </footer>
       </div>
     </main>
