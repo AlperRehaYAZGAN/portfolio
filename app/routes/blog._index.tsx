@@ -6,7 +6,7 @@ import { SITE_DOMAIN, SITE_KEYWORDS, SITE_NAME } from "~/lib/constants";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: `Blog | ${SITE_NAME}` },
+    { title: `Blog - @${SITE_NAME}` },
     { name: "description", content: "Blog sayfası yakında sizlerle olacak." },
     {
       name: "keywords",

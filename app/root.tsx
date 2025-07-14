@@ -1,20 +1,16 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import type { LinksFunction } from "@remix-run/cloudflare";
 import {
-  json,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
-  useLocation,
 } from "@remix-run/react";
 
 // css
 import AppShellComponent from "./appshell";
 import "./tailwind.css";
-
-import { useEffect } from "react";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,21 +25,7 @@ export const links: LinksFunction = () => [
   },
 ];
 
-export const loader = async ({ context }: LoaderFunctionArgs) => {
-  return json({
-    gaTrackingId: context.cloudflare.env.GA_TRACKING_ID,
-    message: "Hello from worker loader",
-  });
-};
-
 export function Layout({ children }: { children: React.ReactNode }) {
-  const location = useLocation();
-  const { message } = useLoaderData<typeof loader>();
-
-  useEffect(() => {
-    console.log("message from worker", message);
-  }, [message]);
-
   return (
     <html lang="en">
       <head>
@@ -58,6 +40,30 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
+  );
+}
+
+export function HydrateFallback() {
+  return (
+    <div
+      // tailwindcss css equivalent for initial loading state
+      style={{
+        height: "75vh",
+        width: "100vw",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <DotLottieReact
+        src="/anims/loading-whale.lottie"
+        loop
+        autoplay
+        style={{ width: "196px", height: "196px" }}
+      />
+      <Scripts />
+    </div>
   );
 }
 

@@ -27,6 +27,7 @@
     "typegen": "pnpm dlx wrangler types"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.14.3",
     "@radix-ui/react-slot": "^1.2.0",
     "@remix-run/cloudflare": "2.16.5",
     "@remix-run/express": "^2.16.5",

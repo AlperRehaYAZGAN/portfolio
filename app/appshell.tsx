@@ -8,8 +8,8 @@ function AppShellComponent({ children }: { children: React.ReactNode }) {
   return (
     <main className="min-h-screen min-w-screen flex flex-col items-center max-w-screen">
       <div className="flex-1 w-full flex flex-col">
-        <nav className="w-full flex flex-row justify-center h-16 sticky top-0 bg-background z-20 border-b border-b-foreground/10">
-          <div className="border-foreground/15 border-b-1 w-full flex flex-row justify-between items-center p-2 px-5 text-sm">
+        <nav className="w-full flex flex-row justify-center h-16 sticky top-0 bg-background border-b border-foreground/15">
+          <div className="w-full flex flex-row justify-between items-center p-2 px-5 text-sm">
             {/* Animate left side */}
             <div className="flex gap-5 items-center font-semibold animate-in fade-in slide-in-from-left-2 duration-200">
               <LinkLogo />
@@ -33,9 +33,11 @@ function AppShellComponent({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </nav>
-        <div className="flex flex-col grow max-w-full">{children}</div>
+        <div className="relative flex flex-col grow w-full max-w-full">
+          {children}
+        </div>
 
-        <footer className="border-foreground/15 w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-4 sticky bottom-0 bg-background z-10">
+        <footer className="border-foreground/15 w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-4 sticky bottom-0 bg-background">
           <p>
             All rights reserved &copy; {new Date().getFullYear()} {AUTHOR.name}
           </p>

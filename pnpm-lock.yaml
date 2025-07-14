@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@lottiefiles/dotlottie-react':
+        specifier: ^0.14.3
+        version: 0.14.3(react@19.1.0)
       '@radix-ui/react-slot':
         specifier: ^1.2.0
         version: 1.2.0(@types/react@19.1.2)(react@19.1.0)
@@ -1086,6 +1089,14 @@ packages:
 
   '@jspm/core@2.1.0':
     resolution: {integrity: sha512-3sRl+pkyFY/kLmHl0cgHiFp2xEqErA8N3ECjMs7serSUBmoJ70lBa0PG5t0IM6WJgdZNyyI0R8YFfi5wM8+mzg==}
+
+  '@lottiefiles/dotlottie-react@0.14.3':
+    resolution: {integrity: sha512-O917vzFmacyC/F1NM2CLBsHqCMUBPiyI9Vw0o3ZohbZzRJYbgHPhdOpL83wE3zWs9VNr0JSbmJrkkUwaQizTWQ==}
+    peerDependencies:
+      react: ^17 || ^18 || ^19
+
+  '@lottiefiles/dotlottie-web@0.48.0':
+    resolution: {integrity: sha512-gcS6/3NYcpD2VUi2413wrZmdNLPbtwPaXqoFBqioLW/GsI/oTpTqmunsliRb4BL1ECLAUu0YOzHyK73UXMHrRg==}
 
   '@mdx-js/mdx@2.3.0':
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
@@ -5345,6 +5356,13 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   '@jspm/core@2.1.0': {}
+
+  '@lottiefiles/dotlottie-react@0.14.3(react@19.1.0)':
+    dependencies:
+      '@lottiefiles/dotlottie-web': 0.48.0
+      react: 19.1.0
+
+  '@lottiefiles/dotlottie-web@0.48.0': {}
 
   '@mdx-js/mdx@2.3.0':
     dependencies:
