@@ -20,5 +20,5 @@ A modern, performant portfolio website built with Remix.js and deployed on Cloud
 
 - [Twitter](https://x.com/alperreha)
 - [LinkedIn](https://www.linkedin.com/in/alperreha/)
-- [GitHub](https://github.com/alperrehayazgan)
+- [GitHub](https://github.com/alperreha)
 - [YouTube](https://www.youtube.com/@rehash_dev)

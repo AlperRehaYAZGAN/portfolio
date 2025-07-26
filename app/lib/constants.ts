@@ -21,7 +21,7 @@ export const SOCIAL_LINKS = {
     username: "@alperreha",
   },
   github: {
-    url: "https://github.com/alperrehayazgan",
+    url: "https://github.com/alperreha",
     username: "alperreha",
   },
 };

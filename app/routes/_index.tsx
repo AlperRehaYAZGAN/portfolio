@@ -55,14 +55,14 @@ export const loader = async ({
   request,
   params,
 }: LoaderFunctionArgs) => {
-  // there is a repository on github "https://github.com/AlperRehaYAZGAN/AlperRehaYAZGAN".
+  // there is a repository on github "https://github.com/alperreha/alperreha".
   // In this repository there is a "README.md" file that index.page usage.
   // also has a "blogs" folder that has blog posts mdx files.
   // fetch "blogs" folder via github repository api and list all files
   const [call, noCall] = await executeAsync(
     async () =>
       await fetch(
-        "https://raw.githubusercontent.com/AlperRehaYAZGAN/AlperRehaYAZGAN/refs/heads/main/README.md"
+        "https://raw.githubusercontent.com/alperreha/alperreha/refs/heads/main/README.md"
       )
   );
   if (!call?.ok || noCall) {

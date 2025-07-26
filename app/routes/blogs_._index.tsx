@@ -62,7 +62,7 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export async function loader() {
-  // there is a repository on github "https://github.com/AlperRehaYAZGAN/AlperRehaYAZGAN".
+  // there is a repository on github "https://github.com/alperreha/alperreha".
   // In this repository there is a "README.md" file that index.page usage.
   // also has a "blogs" folder that has blog posts mdx files.
   // fetch "blogs" folder via github repository api and list all files
@@ -81,7 +81,7 @@ export async function loader() {
     }
   ]
   */
-  const fileUrl = `https://raw.githubusercontent.com/AlperRehaYAZGAN/AlperRehaYAZGAN/main/blogs/__meta.json`;
+  const fileUrl = `https://raw.githubusercontent.com/alperreha/alperreha/main/blogs/__meta.json`;
   const [blogs, noBlogs] = await executeAsync(async () =>
     (await fetch(fileUrl)).json()
   );

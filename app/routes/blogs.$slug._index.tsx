@@ -144,7 +144,7 @@ export const loader = async ({ context, request, params }: LoaderParams) => {
     }
   ]
   */
-  const meta = `https://raw.githubusercontent.com/AlperRehaYAZGAN/AlperRehaYAZGAN/main/blogs/__meta.json`;
+  const meta = `https://raw.githubusercontent.com/alperreha/alperreha/main/blogs/__meta.json`;
   const [blogs, noBlogs] = await executeAsync(async () =>
     (await fetch(meta)).json()
   );
@@ -157,7 +157,7 @@ export const loader = async ({ context, request, params }: LoaderParams) => {
     return json({ blogs: blogs, blog: null, code: null, noBlog: null });
   }
 
-  const file = `https://raw.githubusercontent.com/AlperRehaYAZGAN/AlperRehaYAZGAN/main/blogs/${found?.filename}`;
+  const file = `https://raw.githubusercontent.com/alperreha/alperreha/main/blogs/${found?.filename}`;
   const [blog, noContent] = await executeAsync(async () =>
     (await fetch(file)).text()
   );

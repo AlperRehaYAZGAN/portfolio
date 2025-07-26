@@ -28,7 +28,7 @@ export function BlogListStructuredData({ blogs }: BlogListStructuredDataProps) {
       sameAs: [
         "https://x.com/alperreha",
         "https://linkedin.com/in/alperreha",
-        "https://github.com/alperrehayazgan",
+        "https://github.com/alperreha",
       ],
     },
     publisher: {
