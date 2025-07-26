@@ -29,32 +29,84 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkRehype from "remark-rehype";
 import remarkToc from "remark-toc";
 
+import { BlogStructuredData } from "@/components/blog/blog-structured-data.component";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { Calendar, Clock } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  Github,
+  Linkedin,
+  Twitter,
+  Youtube,
+} from "lucide-react";
 import { executeAsync } from "promise-like-go";
 import { ErrorBoundary } from "react-error-boundary";
 
 export const meta: MetaFunction = ({ data, params }) => {
   const blogData = data as any;
-  const blogTitle =
-    blogData?.blog?.name?.replace(".mdx", "").replace(".md", "") || "Blog Post";
+  const blog = blogData?.blog;
 
-  return [
+  // Use the actual blog title from metadata instead of filename
+  const blogTitle = blog?.title || "Blog Post";
+  const blogDescription = blog?.description || SITE_DESCRIPTION;
+  const blogImage = blog?.image || `https://${SITE_DOMAIN}/og-image.png`;
+  const blogUrl = `https://${SITE_DOMAIN}/blogs/${params.slug}`;
+  const publishedDate = blog?.published;
+  const blogTags = blog?.tags?.join(", ") || SITE_KEYWORDS;
+  const blogAuthor = blog?.author || AUTHOR.name;
+
+  const metaTags = [
+    // Basic meta tags
     { title: `${blogTitle} | ${SITE_NAME}` },
-    { name: "description", content: "Blog post by @alperreha" },
-    { name: "author", content: AUTHOR.name },
-    { name: "keywords", content: SITE_KEYWORDS },
-    { name: "og:title", content: blogTitle },
-    { name: "og:description", content: SITE_DESCRIPTION },
-    { name: "og:url", content: `https://${SITE_DOMAIN}/blogs/${params.slug}` },
-    { name: "og:image", content: `https://${SITE_DOMAIN}/og-image.png` },
+    { name: "description", content: blogDescription },
+    { name: "author", content: blogAuthor },
+    { name: "keywords", content: blogTags },
+    { name: "canonical", content: blogUrl },
+
+    // Open Graph tags for Facebook, LinkedIn, etc.
+    { property: "og:type", content: "article" },
+    { property: "og:title", content: blogTitle },
+    { property: "og:description", content: blogDescription },
+    { property: "og:url", content: blogUrl },
+    { property: "og:image", content: blogImage },
+    { property: "og:image:alt", content: `Cover image for ${blogTitle}` },
+    { property: "og:site_name", content: SITE_NAME },
+    { property: "og:locale", content: "en_US" },
+
+    // Article specific Open Graph tags
+    { property: "article:author", content: blogAuthor },
+    { property: "article:section", content: "Technology" },
+
+    // Twitter Card tags
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:title", content: blogTitle },
-    { name: "twitter:description", content: SITE_DESCRIPTION },
+    { name: "twitter:site", content: SOCIAL_LINKS.twitter.username },
     { name: "twitter:creator", content: SOCIAL_LINKS.twitter.username },
+    { name: "twitter:title", content: blogTitle },
+    { name: "twitter:description", content: blogDescription },
+    { name: "twitter:image", content: blogImage },
+    { name: "twitter:image:alt", content: `Cover image for ${blogTitle}` },
+
+    // LinkedIn specific (uses Open Graph)
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
   ];
+
+  // Add published date and tags if available
+  if (publishedDate) {
+    metaTags.push({
+      property: "article:published_time",
+      content: publishedDate,
+    });
+  }
+
+  if (blog?.tags?.length) {
+    blog.tags.forEach((tag: string) => {
+      metaTags.push({ property: "article:tag", content: tag });
+    });
+  }
+
+  return metaTags;
 };
 
 interface TocEntry {
@@ -77,6 +129,21 @@ interface LoaderParams {
 export const loader = async ({ context, request, params }: LoaderParams) => {
   const { slug } = params;
 
+  /* 
+  __ meta.json file contains the list of blog posts. like below:
+  [
+    {
+      "title": "Introduction",
+      "description": "An introduction to my blog",
+      "published": "2023-01-01",
+      "author": "Alper Reha YAZGAN",
+      "tags": ["introduction", "blog"],
+      "image": "https://example.com/image.png",
+      "filename": "intro.mdx",
+      "slug": "intro",
+    }
+  ]
+  */
   const meta = `https://raw.githubusercontent.com/AlperRehaYAZGAN/AlperRehaYAZGAN/main/blogs/__meta.json`;
   const [blogs, noBlogs] = await executeAsync(async () =>
     (await fetch(meta)).json()
@@ -213,6 +280,7 @@ function DetailsFeatured({ blog }: { blog: any }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.5 }}
+      className="border-y w-full"
     >
       <div className="w-full rounded-lg overflow-hidden">
         <img
@@ -358,37 +426,48 @@ function DetailsFooter() {
         </div>
 
         {/* Social Links */}
-        <div className="flex flex-row items-center gap-2 w-full sm:w-auto justify-center sm:justify-end">
-          <Button variant="ghost" size="sm" asChild>
-            <a
-              href={SOCIAL_LINKS.twitter.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs sm:text-sm"
-            >
-              Twitter
-            </a>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
-            <a
-              href={SOCIAL_LINKS.github.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs sm:text-sm"
-            >
-              GitHub
-            </a>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
-            <a
-              href={SOCIAL_LINKS.linkedin.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs sm:text-sm"
-            >
-              LinkedIn
-            </a>
-          </Button>
+        {/* Social Links */}
+        <div className="flex gap-2">
+          <Link
+            to={SOCIAL_LINKS.linkedin.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="ghost" size="icon">
+              <Linkedin className="h-5 w-5 text-blue-600" />
+              <span className="sr-only">LinkedIn</span>
+            </Button>
+          </Link>
+          <Link
+            to={SOCIAL_LINKS.youtube.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="ghost" size="icon">
+              <Youtube className="h-5 w-5 text-red-600" />
+              <span className="sr-only">YouTube</span>
+            </Button>
+          </Link>
+          <Link
+            to={SOCIAL_LINKS.twitter.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="ghost" size="icon">
+              <Twitter className="h-5 w-5 text-gray-800 dark:text-gray-200" />
+              <span className="sr-only">X (Twitter)</span>
+            </Button>
+          </Link>
+          <Link
+            to={SOCIAL_LINKS.github.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button variant="ghost" size="icon">
+              <Github className="h-5 w-5 text-gray-700" />
+              <span className="sr-only">GitHub</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </motion.div>
@@ -451,16 +530,15 @@ export default function BlogDetails() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
+      {/* SEO Structured Data */}
+      <BlogStructuredData blog={blog} />
+
       <div className="container w-full max-w-5xl flex flex-col gap-4 mx-auto p-4 lg:p-8">
         {/* Header Section */}
         <DetailsHeader blog={blog} />
 
-        <Separator className="w-full" />
-
         {/* Featured Image Section */}
         <DetailsFeatured blog={blog} />
-
-        <Separator />
 
         {/* Main Content Grid - 12 columns */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">

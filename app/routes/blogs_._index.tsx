@@ -1,30 +1,63 @@
 import { SITE_DOMAIN, SITE_KEYWORDS, SITE_NAME } from "@/lib/constants";
 import { BlogPostListSection } from "@/sections/blog/blog-post-list.section";
+import { BlogListStructuredData } from "@/components/blog/blog-list-structured-data.component";
 import type { MetaFunction } from "@remix-run/cloudflare";
 import { json, useLoaderData } from "@remix-run/react";
 import { motion } from "framer-motion";
 import { executeAsync } from "promise-like-go";
 
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction = ({ data }) => {
+  const blogData = data as any;
+  const blogsCount = blogData?.blogs?.length || 0;
+  const latestPost = blogData?.blogs?.[0];
+
+  const pageTitle = `Latest Posts | ${SITE_NAME}`;
+  const pageDescription = `Discover ${blogsCount} posts about technology, programming, and web development by Alper Reha Yazgan. Latest: ${
+    latestPost?.title || "Coming soon"
+  }`;
+  const pageUrl = `https://${SITE_DOMAIN}/blogs`;
+  const pageImage = latestPost?.image || `https://${SITE_DOMAIN}/og-image.png`;
+
   return [
-    { title: `Latest Blog Posts - @${SITE_NAME}` },
+    // Basic meta tags
+    { title: pageTitle },
+    { name: "description", content: pageDescription },
+    { name: "keywords", content: SITE_KEYWORDS },
+    { name: "author", content: "Alper Reha Yazgan" },
+    { name: "canonical", content: pageUrl },
+
+    // Open Graph tags for Facebook, LinkedIn, etc.
+    { property: "og:type", content: "website" },
+    { property: "og:title", content: pageTitle },
+    { property: "og:description", content: pageDescription },
+    { property: "og:url", content: pageUrl },
+    { property: "og:image", content: pageImage },
     {
-      name: "description",
-      content:
-        "My random posts about technology, programming, and web development",
+      property: "og:image:alt",
+      content: "Latest blog posts by Alper Reha Yazgan",
     },
+    { property: "og:site_name", content: SITE_NAME },
+    { property: "og:locale", content: "en_US" },
+
+    // Twitter Card tags
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:site", content: "@alperreha" },
+    { name: "twitter:creator", content: "@alperreha" },
+    { name: "twitter:title", content: pageTitle },
+    { name: "twitter:description", content: pageDescription },
+    { name: "twitter:image", content: pageImage },
     {
-      name: "keywords",
-      content: SITE_KEYWORDS,
+      name: "twitter:image:alt",
+      content: "Latest blog posts by Alper Reha Yazgan",
     },
-    { name: "og:title", content: `Latest Blog Posts | ${SITE_NAME}` },
-    {
-      name: "og:description",
-      content:
-        "My random posts about technology, programming, and web development",
-    },
-    { name: "og:url", content: `https://${SITE_DOMAIN}/blogs` },
-    { name: "og:image", content: `https://${SITE_DOMAIN}/og-image.png` },
+
+    // LinkedIn specific (uses Open Graph)
+    { property: "og:image:width", content: "1200" },
+    { property: "og:image:height", content: "630" },
+
+    // Additional SEO tags
+    { name: "robots", content: "index, follow" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
   ];
 };
 
@@ -96,6 +129,9 @@ export default function BlogsIndex() {
 
   return (
     <div className="min-h-screen">
+      {/* SEO Structured Data */}
+      <BlogListStructuredData blogs={blogs} />
+
       <div className="container mx-auto px-6 py-16 max-w-5xl">
         {/* Header Section */}
         <motion.div
