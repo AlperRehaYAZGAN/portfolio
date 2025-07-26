@@ -24,7 +24,6 @@ import { executeAsync } from "promise-like-go";
 import { Suspense, useCallback, useMemo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import * as runtime from "react/jsx-runtime";
-import rehypePrettyCode from "rehype-pretty-code";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkMdx from "remark-mdx";
@@ -84,7 +83,7 @@ export const loader = async ({
       remarkFrontmatter,
       remarkMdxFrontmatter,
     ],
-    rehypePlugins: [[rehypePrettyCode]],
+    rehypePlugins: [],
   });
 
   return json(

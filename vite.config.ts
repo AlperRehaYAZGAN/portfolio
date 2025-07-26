@@ -12,7 +12,6 @@ import { getLoadContext } from "./load-context";
 import mdx from "@mdx-js/rollup";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import remarkMdx from "remark-mdx";
 import remarkToc from "remark-toc";
@@ -35,7 +34,9 @@ export default defineConfig({
         remarkFrontmatter,
         remarkMdxFrontmatter,
       ],
-      rehypePlugins: [rehypePrettyCode],
+      rehypePlugins: [
+        // rehypePrettyCode // shiki causes workerd runtime error
+      ],
     }),
     remix({
       ssr: true,

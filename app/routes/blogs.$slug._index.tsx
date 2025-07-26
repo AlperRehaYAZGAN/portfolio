@@ -21,7 +21,6 @@ import {
   useState,
 } from "react";
 import * as runtime from "react/jsx-runtime";
-import rehypePrettyCode from "rehype-pretty-code";
 import withSlugs from "rehype-slug";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
@@ -114,17 +113,7 @@ export const loader = async ({ context, request, params }: LoaderParams) => {
       remarkFrontmatter,
       remarkMdxFrontmatter,
     ],
-    rehypePlugins: [
-      [
-        rehypePrettyCode,
-        {
-          theme: "github-light",
-          keepBackground: false,
-        },
-      ],
-      withSlugs,
-      withToc,
-    ],
+    rehypePlugins: [withSlugs, withToc],
   });
 
   return json(
